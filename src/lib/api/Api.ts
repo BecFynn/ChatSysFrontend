@@ -31,12 +31,61 @@ export interface CreateUserRequest {
   email?: string | null;
 }
 
+export interface GroupchatDTO {
+  /** @format uuid */
+  id?: string;
+  name?: string | null;
+  /** @format date-time */
+  createdDate?: string;
+  users?: UserDTOShort[] | null;
+}
+
+export interface GroupchatDTOShort {
+  /** @format uuid */
+  id?: string;
+  name?: string | null;
+  /** @format date-time */
+  createdDate?: string;
+}
+
+export interface MessageResponse {
+  action?: string | null;
+  sender?: UserDTO;
+  userReciever?: UserDTO;
+  groupReciever?: GroupchatDTO;
+  content?: string | null;
+  /** @format date-time */
+  createdDate?: string;
+}
+
 export interface SendMessageRequest {
   /** @format uuid */
   senderID?: string;
   /** @format uuid */
   receiverID?: string;
   content?: string | null;
+}
+
+export interface UserDTO {
+  /** @format uuid */
+  id?: string;
+  name?: string | null;
+  surname?: string | null;
+  displayName?: string | null;
+  ntUser?: string | null;
+  email?: string | null;
+  /** @format date-time */
+  createdAt?: string;
+  avatar?: string | null;
+  userGroupchats?: GroupchatDTOShort[] | null;
+}
+
+export interface UserDTOShort {
+  /** @format uuid */
+  id?: string;
+  displayName?: string | null;
+  ntUser?: string | null;
+  avatar?: string | null;
 }
 
 import type {
@@ -283,12 +332,13 @@ export class Api<
    * @name SendCreate
    * @request POST:/Send
    */
-  sendMessage = (data: SendMessageRequest, params: RequestParams = {}) =>
-    this.request<void, any>({
+  sendCreate = (data: SendMessageRequest, params: RequestParams = {}) =>
+    this.request<MessageResponse, any>({
       path: `/Send`,
       method: "POST",
       body: data,
       type: ContentType.Json,
+      format: "json",
       ...params,
     });
 

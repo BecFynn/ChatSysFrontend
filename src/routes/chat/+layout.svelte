@@ -2,10 +2,13 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { getSocket } from "../../lib/util/socket";
 	import { writable, derived } from 'svelte/store';
-
+	import ChatInput from '$lib/components/ChatInput.svelte';
+	import Sidebar from '$lib/components/Sidebar.svelte';
+	import type { MessageResponse } from '$lib/api/Api';
+	import { json } from '@sveltejs/kit';
 	// Store to hold incoming messages
-	const messages = writable<string[]>([]);
-
+	const messages = writable<MessageResponse[]>([]);
+	let { children} = $props()
 	let socket: WebSocket | null = null;
 
 	onMount(() => {
@@ -18,8 +21,14 @@
 		
 		// Listen for incoming messages
 		socket.addEventListener('message', (event) => {
+			//console.log("message erhalten: ", event.data)
+			const newMessage = JSON.parse(event.data) as MessageResponse;
+			console.log(newMessage)
+			messages.update(msgs => [...msgs, newMessage]);
+			console.log(newMessage.content)
+		
 
-			messages.update(msgs => [...msgs, event.data]);
+
 		});
 
 		// Clean up on page unload
@@ -38,10 +47,19 @@
 		});
 	});
 </script>
-<Chatbox onSend={(message)=> socket?.send(JSON.stringify({content: message}))}>   </Chatbox>
 
-<div class="bg-red-500 w-full h-[100vh] flex flex-row">
+
+<div class="bg-redx-500 w-full h-[100vh] flex flex-row">
 	<Sidebar/>
-	{@render children()}
+	<div class="flex flex-col w-full">
+		<p>Messages:</p>
+		<div class="flex flex-col">
+			{#each $messages as message}
+				<p class="text-bold">{message.content}</p>
+			{/each}
+		</div>
+		{@render children()}
+		<ChatInput/>
+	</div>
 
 </div>

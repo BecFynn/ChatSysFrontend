@@ -1,5 +1,5 @@
 <script>
     import { page } from "$app/state";
-    import Chatbox from "../../../lib/components/Chatbox.svelte";
+    import Chatbox from "../../../lib/components/ChatInput.svelte";
 </script>
-<h1 class="text-red-500 text-3xl">{page.params.chatID}</h1>
+<h1>das ist Chat: {page.params.chatID}</h1>
