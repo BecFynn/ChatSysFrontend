@@ -1,4 +1,5 @@
 <script lang="ts">
+    import "../../app.css"
     let query = $state("");           // input field state
     let finalQuery = $state("");      // only updates on Enter key
 

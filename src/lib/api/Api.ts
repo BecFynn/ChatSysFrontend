@@ -353,4 +353,19 @@ export class Api<
         ...params,
       }),
   };
+  userId = {
+    /**
+     * No description
+     *
+     * @tags User
+     * @name UserDetail
+     * @request GET:/api/User/{userID}
+     */
+    userDetail: (userId: string, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/api/User/${userId}`,
+        method: "GET",
+        ...params,
+      }),
+  };
 }
