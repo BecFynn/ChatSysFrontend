@@ -2,24 +2,31 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { getSocket } from "../../lib/util/socket";
 	import { writable, derived } from 'svelte/store';
-	import Chatbox from '$lib/components/Chatbox.svelte';
 
-	export let data;
-
+	// Store to hold incoming messages
 	const messages = writable<string[]>([]);
+
 	let socket: WebSocket | null = null;
 
 	onMount(() => {
-		socket = getSocket();
-		if (!socket) return;
+		socket = getSocket() // getSocket should return an instance of WebSocket
 
+		if(!socket){
+			return
+		}
+		console.log(`Websocket connected`, socket)
+		
+		// Listen for incoming messages
 		socket.addEventListener('message', (event) => {
+
 			messages.update(msgs => [...msgs, event.data]);
 		});
 
+		// Clean up on page unload
 		const cleanup = () => {
 			if (socket && socket.readyState === WebSocket.OPEN) {
 				socket.close();
+				console.log("Websocket disconnected")
 			}
 		};
 
@@ -30,29 +37,11 @@
 			window.removeEventListener('beforeunload', cleanup);
 		});
 	});
-
-	// Derived store to hold parsed messages
-	const parsedMessages = derived(messages, ($messages) =>
-		$messages.map((msg) => {
-			try {
-				return JSON.parse(msg);
-			} catch {
-				return { content: 'Invalid JSON' };
-			}
-		})
-	);
 </script>
 <Chatbox onSend={(message)=> socket?.send(JSON.stringify({content: message}))}>   </Chatbox>
 
-<div class="app-layout">
-	<h1>CHATAPP</h1>
-	<main>
-		<slot />
-		<h1>Messages: </h1>
-		<ul>
-			{#each $parsedMessages as message}
-				<li>{message.content}</li>
-			{/each}
-		</ul>
-	</main>
+<div class="bg-red-500 w-full h-[100vh] flex flex-row">
+	<Sidebar/>
+	{@render children()}
+
 </div>
