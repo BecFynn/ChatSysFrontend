@@ -261,7 +261,10 @@ export class Api<
     query?: {
       /** @format uuid */
       target?: string;
-      /** @format int32 */
+      /**
+       * @format int32
+       * @default 20
+       */
       count?: number;
     },
     params: RequestParams = {},
@@ -280,7 +283,7 @@ export class Api<
    * @name SendCreate
    * @request POST:/Send
    */
-  sendCreate = (data: SendMessageRequest, params: RequestParams = {}) =>
+  sendMessage = (data: SendMessageRequest, params: RequestParams = {}) =>
     this.request<void, any>({
       path: `/Send`,
       method: "POST",

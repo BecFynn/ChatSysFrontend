@@ -2,6 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { getSocket } from "../../lib/util/socket";
 	import { writable, derived } from 'svelte/store';
+	import Chatbox from '$lib/components/Chatbox.svelte';
 
 	export let data;
 
@@ -41,6 +42,7 @@
 		})
 	);
 </script>
+<Chatbox onSend={(message)=> socket?.send(JSON.stringify({content: message}))}>   </Chatbox>
 
 <div class="app-layout">
 	<h1>CHATAPP</h1>
