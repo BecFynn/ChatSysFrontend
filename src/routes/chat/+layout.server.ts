@@ -5,6 +5,6 @@ const api = new Api({
 })
 
 export async function load() {
-    const user = await api.userId.userDetail("7092e09f-fd30-41c4-a27a-2b4cff6c8aa3").then(r => r.data)
+    const user = await api.userId.userDetail("09f6770d-ae80-4779-bae7-34e58ef3cf4c").then(r => r.data)
     return { user };
   }

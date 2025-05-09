@@ -1,28 +1,21 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { getSocket } from "../../lib/util/socket";
-	import { writable } from 'svelte/store';
+	import { writable, derived } from 'svelte/store';
 
 	export let data;
 
-	// Store to hold incoming messages
 	const messages = writable<string[]>([]);
-
 	let socket: WebSocket | null = null;
 
 	onMount(() => {
-		socket = getSocket() // getSocket should return an instance of WebSocket
+		socket = getSocket();
+		if (!socket) return;
 
-		if(!socket){
-			return
-		}
-
-		// Listen for incoming messages
 		socket.addEventListener('message', (event) => {
 			messages.update(msgs => [...msgs, event.data]);
 		});
 
-		// Clean up on page unload
 		const cleanup = () => {
 			if (socket && socket.readyState === WebSocket.OPEN) {
 				socket.close();
@@ -36,6 +29,17 @@
 			window.removeEventListener('beforeunload', cleanup);
 		});
 	});
+
+	// Derived store to hold parsed messages
+	const parsedMessages = derived(messages, ($messages) =>
+		$messages.map((msg) => {
+			try {
+				return JSON.parse(msg);
+			} catch {
+				return { content: 'Invalid JSON' };
+			}
+		})
+	);
 </script>
 
 <div class="app-layout">
@@ -44,8 +48,8 @@
 		<slot />
 		<h1>Messages: </h1>
 		<ul>
-			{#each $messages as message}
-				<li>{message}</li>
+			{#each $parsedMessages as message}
+				<li>{message.content}</li>
 			{/each}
 		</ul>
 	</main>
