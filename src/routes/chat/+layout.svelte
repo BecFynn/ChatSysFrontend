@@ -6,6 +6,7 @@
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import type { MessageResponse } from '$lib/api/Api';
 	import { json } from '@sveltejs/kit';
+	import MessageHistory from '$lib/components/MessageHistory.svelte';
 	// Store to hold incoming messages
 	const messages = writable<MessageResponse[]>([]);
 	let { children} = $props()
@@ -21,11 +22,17 @@
 		
 		// Listen for incoming messages
 		socket.addEventListener('message', (event) => {
+			let data = event.data
+
 			//console.log("message erhalten: ", event.data)
 			const newMessage = JSON.parse(event.data) as MessageResponse;
-			console.log(newMessage)
-			messages.update(msgs => [...msgs, newMessage]);
-			console.log(newMessage.content)
+			
+			if(newMessage.action == "message"){
+			
+				console.log(newMessage)
+				messages.update(msgs => [...msgs, newMessage]);
+				console.log(newMessage.content)
+			}
 		
 
 
@@ -52,12 +59,7 @@
 <div class="bg-redx-500 w-full h-[100vh] flex flex-row">
 	<Sidebar/>
 	<div class="flex flex-col w-full">
-		<p>Messages:</p>
-		<div class="flex flex-col">
-			{#each $messages as message}
-				<p class="text-bold">{message.content}</p>
-			{/each}
-		</div>
+		<MessageHistory messages={messages}/>
 		{@render children()}
 		<ChatInput/>
 	</div>

@@ -6,7 +6,6 @@
 })
 
 	const input = writable('');
-	
 	async function handleSend() {
 	const message = $input.trim();
 	if (!message) return;
