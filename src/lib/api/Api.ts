@@ -31,6 +31,20 @@ export interface CreateUserRequest {
   email?: string | null;
 }
 
+export interface GetMessagesReponse {
+  target: Target;
+  messages: MessageDTO[];
+}
+
+export interface Groupchat {
+  /** @format uuid */
+  id?: string;
+  name?: string | null;
+  /** @format date-time */
+  createdDate?: string;
+  users?: User[] | null;
+}
+
 export interface GroupchatDTO {
   /** @format uuid */
   id?: string;
@@ -46,6 +60,18 @@ export interface GroupchatDTOShort {
   name?: string | null;
   /** @format date-time */
   createdDate?: string;
+}
+
+export interface MessageDTO {
+  /** @format uuid */
+  id: string;
+  sender?: User;
+  groupReciever?: Groupchat;
+  userReciever?: User;
+  /** @minLength 1 */
+  content: string;
+  /** @format date-time */
+  createdDate: string;
 }
 
 export interface MessageResponse {
@@ -64,6 +90,34 @@ export interface SendMessageRequest {
   /** @format uuid */
   receiverID?: string;
   content?: string | null;
+}
+
+export interface Target {
+  /** @format uuid */
+  id: string;
+  /** @minLength 1 */
+  name: string;
+  /** @minLength 1 */
+  type: string;
+}
+
+export interface User {
+  /** @format uuid */
+  id: string;
+  /** @minLength 1 */
+  name: string;
+  /** @minLength 1 */
+  surname: string;
+  /** @minLength 1 */
+  displayName: string;
+  /** @minLength 1 */
+  ntUser: string;
+  /** @minLength 1 */
+  email: string;
+  /** @format date-time */
+  createdAt: string;
+  avatar?: string | null;
+  userGroupchats?: Groupchat[] | null;
 }
 
 export interface UserDTO {
@@ -277,9 +331,10 @@ export class Api<
    * @request GET:/api/Group
    */
   groupList = (params: RequestParams = {}) =>
-    this.request<void, any>({
+    this.request<GroupchatDTO[], any>({
       path: `/api/Group`,
       method: "GET",
+      format: "json",
       ...params,
     });
 
@@ -318,10 +373,11 @@ export class Api<
     },
     params: RequestParams = {},
   ) =>
-    this.request<void, any>({
+    this.request<GetMessagesReponse, any>({
       path: `/Message`,
       method: "GET",
       query: query,
+      format: "json",
       ...params,
     });
 
@@ -373,6 +429,36 @@ export class Api<
       ...params,
     });
 
+  id = {
+    /**
+     * No description
+     *
+     * @tags Group
+     * @name GroupDetail
+     * @request GET:/api/Group/{id}
+     */
+    groupDetail: (id: string, params: RequestParams = {}) =>
+      this.request<GroupchatDTO, any>({
+        path: `/api/Group/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags User
+     * @name UserDetail
+     * @request GET:/api/User/{id}
+     */
+    userDetail: (id: string, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/api/User/${id}`,
+        method: "GET",
+        ...params,
+      }),
+  };
   addUser = {
     /**
      * No description
@@ -404,21 +490,6 @@ export class Api<
         method: "DELETE",
         body: data,
         type: ContentType.Json,
-        ...params,
-      }),
-  };
-  userId = {
-    /**
-     * No description
-     *
-     * @tags User
-     * @name UserDetail
-     * @request GET:/api/User/{userID}
-     */
-    userDetail: (userId: string, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/User/${userId}`,
-        method: "GET",
         ...params,
       }),
   };

@@ -7,6 +7,7 @@
 	import type { MessageResponse } from '$lib/api/Api';
 	import { json } from '@sveltejs/kit';
 	import MessageHistory from '$lib/components/MessageHistory.svelte';
+	import Header from '$lib/components/Header.svelte';
 	// Store to hold incoming messages
 	const messages = writable<MessageResponse[]>([]);
 	let { children} = $props()

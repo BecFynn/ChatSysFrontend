@@ -12,13 +12,14 @@
         </div>
     </div>
     <div class="flex flex-row px-2 justify-">
-    
-        <div class="bg-white h-16 w-16 justify-self-start">
-            <img src="https://api.dicebear.com/9.x/open-peeps/svg?seed=" class="h-16 w-16" alt="user img">
+        <div class="bg-white h-16 w-16 justify-self-start flex flex-row">
+            {#each groupchat.users || [] as user}
+                <img src="https://api.dicebear.com/9.x/open-peeps/svg?seed={user.displayName}" class="h-16 w-16 -ml-5" alt="user img">    
+            {/each}
+        
         </div>
         <div class="flex justify-center items-center bg-redx-500 w-full">
             <p class="text-lg">{groupchat.name}</p>
         </div>
     </div>
-    
 </a>
