@@ -350,9 +350,10 @@ export class Api<
    * @request GET:/api/User
    */
   userList = (params: RequestParams = {}) =>
-    this.request<void, any>({
+    this.request<UserDTO[], any>({
       path: `/api/User`,
       method: "GET",
+      format: "json",
       ...params,
     });
 
