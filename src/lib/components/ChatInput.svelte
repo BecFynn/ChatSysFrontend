@@ -3,7 +3,7 @@
     import { Api, type UserDTO } from '$lib/api/Api';
 	import { page } from "$app/state";
     const api = new Api({
-    baseURL:"http://localhost:5191"
+    	baseURL:"http://localhost:5191"
 })
 
 	const input = writable('');

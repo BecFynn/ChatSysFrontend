@@ -1,5 +1,11 @@
 <script>
     import { page } from "$app/state";
+	import MessageHistory from "$lib/components/MessageHistory.svelte";
     import Chatbox from "../../../lib/components/ChatInput.svelte";
+
+    export let data;
+
+
+
 </script>
-<h1>das ist Chat: {page.params.chatID}</h1>
+<MessageHistory chatData = {data.chatData}/>
