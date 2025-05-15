@@ -19,6 +19,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	return {
 		chatID: params.chatID,
-		chatData: chatData
+		chatData: chatData,
+		messages: chatData.messages
 	};
 };

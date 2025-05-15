@@ -1,8 +1,8 @@
 <script lang="ts">
     import type {MessageDTO} from "$lib/api/Api";
-    export let message
-    //falls benutzer id eigene benutzerID 
-    
+    export let message : MessageDTO
+    //falls benutzer id eigene benutzerID
+   
     const colorMap: Record<string, string> = {
         red: "bg-red-300",
         green: "bg-green-300",
@@ -10,13 +10,13 @@
         yellow: "bg-yellow-300",
         gray: "bg-gray-300"
     };
-
+ 
     let left=false
-    const [colorKey,messageText] = message.content.split(";");
-    const color = colorMap[colorKey] || "bg-gray-300";
+    
+    const color = colorMap[Math.floor(Math.random()* Object.keys(colorMap).length - 1) + 1] || "bg-gray-300";
 </script>
 <div class="flex"  class:justify-end={left}>
 <div class="{color} w-auto p-2 m-2 rounded-lg ">
-    {messageText}
+    {message.content}
 </div>
 </div>

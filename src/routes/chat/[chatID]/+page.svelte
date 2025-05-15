@@ -5,7 +5,7 @@
 
     export let data;
 
-
+    
 
 </script>
 <MessageHistory chatData = {data.chatData}/>

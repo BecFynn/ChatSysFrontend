@@ -79,7 +79,7 @@ export interface MessageResponse {
   sender?: UserDTO;
   userReciever?: UserDTO;
   groupReciever?: GroupchatDTO;
-  content?: string | null;
+  message?: MessageDTO;
   /** @format date-time */
   createdDate?: string;
 }
