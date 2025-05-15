@@ -18,10 +18,18 @@
  
     let left=false
     
-    const color = colorMap[Math.floor(Math.random()* Object.keys(colorMap).length - 1) + 1] || "bg-gray-300";
+    const color = colorMap[Math.floor(Math.random()* Object.keys(colorMap).length - 1) + 1] || "bg-gray-200";
 </script>
-<div class="flex"  class:justify-end={left}>
-<div class="{color} w-auto p-2 m-2 rounded-lg ">
-    {message.content}
-</div>
+<div class="flex flex-row items-center"  class:justify-end={left}>
+    <div class="h-12 w-12 rounded-sm bg-gray-100 ">
+        <img src={message.sender?.avatar} alt={`${message.sender?.id}`}>
+    </div>
+    <div class="{color} min-w-[10rem] flex flex-col w-auto px-3 py-2 m-2 rounded-lg h-[5rem]  ">
+        <div class="bg-redx-500">
+            <p class="font-bold text-lg">{message.sender?.displayName}</p>
+        </div>
+        <div class="bg-redx-500">
+            <p class="">{message.content}</p>
+        </div>
+    </div>
 </div>
