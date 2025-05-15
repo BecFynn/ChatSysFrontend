@@ -60,7 +60,6 @@
 <div class="bg-redx-500 w-full h-[100vh] flex flex-row">
 	<Sidebar/>
 	<div class="flex flex-col w-full">
-		
 		{@render children()}
 		<ChatInput/>
 	</div>
