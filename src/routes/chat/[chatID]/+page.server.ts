@@ -18,8 +18,6 @@ export const load: PageServerLoad = async ({ params }) => {
 	console.log(chatData)
 
 	return {
-		chatID: params.chatID,
-		chatData: chatData,
-		messages: chatData.messages
+		chatData
 	};
 };

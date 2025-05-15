@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, onDestroy, afterUpdate } from "svelte";
+	import { onMount, onDestroy } from "svelte";
 	import { writable, get } from "svelte/store";
 	import Header from "./Header.svelte";
 	import { getSocket } from "$lib/util/socket";
@@ -7,28 +7,36 @@
 	import MessageBubble from "./MessageBubble.svelte";
 	import { Api, type GetMessagesReponse, type MessageDTO, type MessageResponse } from "$lib/api/Api";
 
-	export let chatData: GetMessagesReponse;
+	interface Props {
+		chatData: GetMessagesReponse
+	}
+    let {chatData}: Props = $props();
+	let messages = writable<MessageDTO[]>([]);
+	$effect(() => {
+	if (chatData?.messages) {
+		messages.set(chatData.messages);
+	}
+	});
 
-	const messages = writable<MessageDTO[]>([...chatData.messages]);
+ 
+	
 
 	let socket: WebSocket | null = null;
 	let container: HTMLDivElement;
 	let isAtBottom = true;
 
-	// Scroll to bottom helper
 	function scrollToBottom() {
 		container.scrollTop = container.scrollHeight;
 	}
 
-	// Check if user is at bottom
 	function checkIsAtBottom() {
-		const threshold = 30; // how close to bottom before considered "at bottom"
+		const threshold = 30;
 		const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
 		isAtBottom = distanceFromBottom < threshold;
 	}
 
 	onMount(() => {
-		scrollToBottom(); // scroll on first mount
+		scrollToBottom();
 
 		socket = getSocket();
 		if (!socket) return;
@@ -39,8 +47,15 @@
 			const newMessage = JSON.parse(event.data) as MessageResponse;
 			if (newMessage.action === "message" && newMessage.message) {
 				const myNewMessage: MessageDTO = newMessage.message;
-				messages.update(msgs => [...msgs, myNewMessage]);
-		}
+				const targetId = chatData.target.id;
+			
+				if (
+					myNewMessage.groupReciever?.id === targetId ||
+					myNewMessage.userReciever?.id === targetId
+				) {
+					messages.update(msgs => [...msgs, myNewMessage]);
+				}
+			}
 		});
 
 		const cleanup = () => {
@@ -57,12 +72,9 @@
 		});
 	});
 
-	// Watch for new messages
-	afterUpdate(() => {
-		if (isAtBottom) {
-			scrollToBottom();
-		}
-	});
+	$effect(() => {
+		scrollToBottom();
+	})
 </script>
 
 

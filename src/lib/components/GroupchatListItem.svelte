@@ -1,7 +1,9 @@
 <script lang="ts">
 	import type { GroupchatDTO, UserDTO } from "$lib/api/Api";
-
-    export let groupchat : GroupchatDTO
+    interface Props {
+		groupchat: GroupchatDTO
+	}
+    let { groupchat} : Props = $props()
 </script>
 
 <a href={`/chat/${groupchat.id}`} class="bg-white h-[6rem] mb-3 rounded-lg flex flex-col py-1 px-3 cursor-pointer select-none">

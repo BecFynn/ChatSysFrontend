@@ -1,6 +1,11 @@
 <script lang="ts">
     import type {MessageDTO} from "$lib/api/Api";
-    export let message : MessageDTO
+
+    interface Props{
+        message : MessageDTO
+    }
+
+     let {message} : Props = $props()
     //falls benutzer id eigene benutzerID
    
     const colorMap: Record<string, string> = {

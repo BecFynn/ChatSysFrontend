@@ -1,7 +1,11 @@
 <script lang="ts">
 	import type { UserDTO } from "$lib/api/Api";
+    
+    interface Props {
+		person: UserDTO
+	}
 
-    export let person : UserDTO
+    let {person} : Props = $props()
 </script>
 
 <a href={`/chat/${person.id}`} class="bg-white h-[6rem] mb-3 rounded-lg flex flex-col py-1 px-3 cursor-pointer select-none">
