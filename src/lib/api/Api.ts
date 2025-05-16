@@ -36,15 +36,6 @@ export interface GetMessagesReponse {
   messages: MessageDTO[];
 }
 
-export interface Groupchat {
-  /** @format uuid */
-  id?: string;
-  name?: string | null;
-  /** @format date-time */
-  createdDate?: string;
-  users?: User[] | null;
-}
-
 export interface GroupchatDTO {
   /** @format uuid */
   id?: string;
@@ -65,9 +56,9 @@ export interface GroupchatDTOShort {
 export interface MessageDTO {
   /** @format uuid */
   id: string;
-  sender?: User;
-  groupReciever?: Groupchat;
-  userReciever?: User;
+  sender?: UserDTOShort;
+  groupReciever?: GroupchatDTOShort;
+  userReciever?: UserDTOShort;
   /** @minLength 1 */
   content: string;
   /** @format date-time */
@@ -99,25 +90,6 @@ export interface Target {
   name: string;
   /** @minLength 1 */
   type: string;
-}
-
-export interface User {
-  /** @format uuid */
-  id: string;
-  /** @minLength 1 */
-  name: string;
-  /** @minLength 1 */
-  surname: string;
-  /** @minLength 1 */
-  displayName: string;
-  /** @minLength 1 */
-  ntUser: string;
-  /** @minLength 1 */
-  email: string;
-  /** @format date-time */
-  createdAt: string;
-  avatar?: string | null;
-  userGroupchats?: Groupchat[] | null;
 }
 
 export interface UserDTO {
@@ -429,6 +401,83 @@ export class Api<
       ...params,
     });
 
+  auth = {
+    /**
+     * No description
+     *
+     * @tags Auth
+     * @name V1AuthMeList
+     * @request GET:/api/v1/Auth/@me
+     */
+    v1AuthMeList: (params: RequestParams = {}) =>
+      this.request<UserDTO, any>({
+        path: `/api/v1/Auth/@me`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Auth
+     * @name V1AuthSigninDetail
+     * @request GET:/api/v1/Auth/signin/{providerName}
+     */
+    v1AuthSigninDetail: (
+      providerName: string,
+      query?: {
+        returnUrl?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, any>({
+        path: `/api/v1/Auth/signin/${providerName}`,
+        method: "GET",
+        query: query,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Auth
+     * @name V1AuthSignoutList
+     * @request GET:/api/v1/Auth/signout
+     */
+    v1AuthSignoutList: (
+      query?: {
+        returnUrl?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, any>({
+        path: `/api/v1/Auth/signout`,
+        method: "GET",
+        query: query,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Auth
+     * @name V1AuthExternalCallbackList
+     * @request GET:/api/v1/Auth/external/callback
+     */
+    v1AuthExternalCallbackList: (
+      query?: {
+        returnUrl?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, any>({
+        path: `/api/v1/Auth/external/callback`,
+        method: "GET",
+        query: query,
+        ...params,
+      }),
+  };
   id = {
     /**
      * No description
