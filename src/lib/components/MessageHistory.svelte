@@ -4,7 +4,7 @@
 	import Header from "./Header.svelte";
 	import { getSocket } from "$lib/util/socket";
 	import { page } from "$app/state";
-	import MessageBubble from "./Messagebubble.svelte";
+	import MessageBubble from "./MessageBubble.svelte";
 	import { Api, type GetMessagesReponse, type MessageDTO, type MessageResponse } from "$lib/api/Api";
 
 	interface Props {
@@ -53,6 +53,7 @@
 					myNewMessage.groupReciever?.id === targetId ||
 					myNewMessage.userReciever?.id === targetId
 				) {
+					console.log(newMessage)
 					messages.update(msgs => [...msgs, myNewMessage]);
 				}
 			}

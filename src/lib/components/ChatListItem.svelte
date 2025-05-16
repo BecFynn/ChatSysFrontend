@@ -18,7 +18,7 @@
     <div class="flex flex-row px-2 justify-">
     
         <div class="bg-white h-16 w-16 justify-self-start">
-            <img src="https://api.dicebear.com/9.x/open-peeps/svg?seed={person.displayName}" class="h-16 w-16" alt="user img">
+            <img src={person?.avatar} alt={person?.id} class="h-16 w-16">
         </div>
         <div class="flex justify-center items-center bg-redx-500 w-full">
             <p class="text-lg">{person.displayName}</p>
