@@ -4,7 +4,7 @@
 	import Header from "./Header.svelte";
 	import { getSocket } from "$lib/util/socket";
 	import { page } from "$app/state";
-	import MessageBubble from "./MessageBubble.svelte";
+	import MessageBubble from "./Messagebubble.svelte";
 	import { Api, type GetMessagesReponse, type MessageDTO, type MessageResponse } from "$lib/api/Api";
 
 	interface Props {
