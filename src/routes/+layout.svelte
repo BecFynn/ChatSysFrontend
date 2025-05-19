@@ -15,7 +15,10 @@
 				console.log("From layout")
 			} catch (err) {
 				console.error("Failed to fetch user data:", err);
-                window.location.href = "/login";
+                console.log(window.location.pathname)
+				if(window.location.pathname != "/login"){
+					window.location.pathname = "/login"
+				}
 			}
 		}
 
