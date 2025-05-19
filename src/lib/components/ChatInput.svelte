@@ -2,29 +2,32 @@
 	import { writable } from 'svelte/store';
     import { Api, type UserDTO } from '$lib/api/Api';
 	import { page } from "$app/state";
+	import { user } from '$lib/stores/userStore';
     const api = new Api({
     	baseURL:"http://localhost:5191"
-})
+	})
 
 	const input = writable('');
 	async function handleSend() {
-		const message = $input.trim();
-		if (!message) return;
-		
-		//get users
-		const user = await api.userList().then(r => r.data);
-		console.log("user")
-		let userid = user[0].id
-		
-		const chats  =  await api.sendCreate({
-    	    "senderID": user[0].id,	
-    	    "receiverID": page.params.chatID,	
-    	    "content": message
-    	  }).then(r => r.data)
-    	  console.log(chats)
+	const message = $input.trim();
+	if (!message) return;
 
+	const currentUser = $user;
 
-	}	
+	if (!currentUser) {
+		console.error("User not logged in");
+		return;
+	}
+
+	const chats = await api.sendCreate({
+		senderID: currentUser.id,
+		receiverID: page.params.chatID,
+		content: message
+	}).then(r => r.data);
+
+	console.log(chats);
+}
+
 
 </script>
 

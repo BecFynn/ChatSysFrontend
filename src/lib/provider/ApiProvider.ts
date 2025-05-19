@@ -30,7 +30,7 @@ export class ApiProvider {
                 }
                 url += `${key}=${config.params[key]}`;
             }
-
+            
             console.log(`[${moment().format("YYYY-MM-DD HH:mm:ss")}]`, "-->", config.method?.toUpperCase(), url);
 
             if (config.baseURL?.startsWith(apiBaseUrl) && !browser && env.PUBLIC_INTERNAL_API_BASE_URL) {

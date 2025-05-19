@@ -4,7 +4,7 @@
 	import MessageHistory from "$lib/components/MessageHistory.svelte";
     import Chatbox from "../../../lib/components/ChatInput.svelte";
 	import type { PageProps } from "./$types";
-
+    
     let props: PageProps = $props();
 
     
