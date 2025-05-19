@@ -81,8 +81,7 @@
 
 
 <Header target={chatData.target} />
-
-<p>Messages:</p>
+<br>
 <div
 	bind:this={container}
 	class="flex flex-col overflow-y-auto h-full px-2"
