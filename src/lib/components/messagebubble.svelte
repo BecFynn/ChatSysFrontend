@@ -1,7 +1,6 @@
 <script lang="ts">
-	//import { USERNAME } from "$env/static/private";
     import type { MessageDTO } from "$lib/api/Api";
-	import { user } from "$lib/stores/userStore";
+    import { user } from "$lib/stores/userStore";
 
     interface Props {
         message: MessageDTO;
@@ -11,9 +10,16 @@
     let messageText = message.content;
     let command = "";
 
-    if (message.content.charAt(0) == "/") {
-        [command, messageText] = message.content.split(";");
-        command = command.slice(1);
+    // Match strings that start with a command like "/red hello there"
+    const match = message.content.match(/^\/(\w+)[;\s]+(.*)/);
+
+    if (match) {
+        command = match[1];      
+        messageText = match[2];  
+    }   
+
+    if(command == "dance"){
+        window.open("https://bos.ch/leckerkeks", "_blank")
     }
 
     const colorMap: Record<string, string> = {
@@ -30,7 +36,6 @@
 
     const color = colorMap[command] || "bg-gray-300";
 
-    // Dynamisch erkennen, ob Nachricht vom eigenen Nutzer stammt
     const currentUserId = $user?.id;
     let left = message.sender?.id !== currentUserId;
 </script>
@@ -46,4 +51,4 @@
             <p>{messageText}</p>
         </div>
     </div>
-</div>
+</div> 
