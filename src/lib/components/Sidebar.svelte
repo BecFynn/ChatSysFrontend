@@ -1,10 +1,11 @@
 <script lang="ts">
 	import "../../app.css"
-	import ChatListItem from "./ChatListItem.svelte";
 	import { Api, type GroupchatDTO, type UserDTO } from '$lib/api/Api';
 	import { onMount } from 'svelte';
-	import GroupchatListItem from "./GroupchatListItem.svelte";
 	import { draw } from "svelte/transition";
+	import AddGroupchat from "./AddGroupchat.svelte";
+	import ChatListItem from "./ChatListItem.svelte";
+	import GroupchatListItem from "./GroupchatListItem.svelte";
     const api = new Api({baseURL:"http://localhost:5191"})
 
 	let users: UserDTO[] = [];
@@ -29,5 +30,6 @@
 	{#each groups as groupchat }
 		<GroupchatListItem groupchat={groupchat} />
 	{/each}
+	<!--<AddGroupchat/>-->
 	
 </div>

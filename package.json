@@ -32,5 +32,9 @@
 	"dependencies": {
 		"axios": "^1.9.0",
 		"moment": "^2.30.1"
-	}
+	},
+	"description": "Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).",
+	"main": "svelte.config.js",
+	"author": "",
+	"license": "ISC"
 }
