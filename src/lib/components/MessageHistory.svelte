@@ -18,9 +18,6 @@
 	}
 	});
 
- 
-	
-
 	let socket: WebSocket | null = null;
 	let container: HTMLDivElement;
 	let isAtBottom = true;
@@ -77,8 +74,6 @@
 		scrollToBottom();
 	})
 </script>
-
-
 
 <Header target={chatData.target} />
 <br>
