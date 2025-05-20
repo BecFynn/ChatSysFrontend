@@ -4,7 +4,7 @@
 	import Header from "./Header.svelte";
 	import { getSocket } from "$lib/util/socket";
 	import { page } from "$app/state";
-	import MessageBubble from "./MessageBubble.svelte";
+	import Bubble from "./Bubble.svelte";
 	import { Api, type GetMessagesReponse, type MessageDTO, type MessageResponse } from "$lib/api/Api";
 
 	interface Props {
@@ -17,6 +17,9 @@
 		messages.set(chatData.messages);
 	}
 	});
+
+ 
+	
 
 	let socket: WebSocket | null = null;
 	let container: HTMLDivElement;
@@ -85,6 +88,6 @@
 	on:scroll={checkIsAtBottom}
 >
 	{#each $messages as message}
-		<MessageBubble {message}/>
+		<Bubble {message}/>
 	{/each}
 </div>

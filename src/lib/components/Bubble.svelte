@@ -11,8 +11,7 @@
     let command = "";
 
     // Match strings that start with a command like "/red hello there"
-    const match = message.content.match(/^\/(\w+)[;\s]+(.*)/);
-
+    const match = message.content.match(/^\/(\w+)\s+(.*)/);
     if (match) {
         command = match[1];      
         messageText = match[2];  
