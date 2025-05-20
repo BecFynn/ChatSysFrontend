@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { MessageDTO } from "$lib/api/Api";
-    import { user } from "$lib/stores/userStore";
+    import { userStore } from "$lib/stores/userStore";
 
     interface Props {
         message: MessageDTO;
@@ -11,15 +11,15 @@
     let command = "";
 
     // Match strings that start with a command like "/red hello there"
-    const match = message.content.match(/^\/(\w+)\s+(.*)/);
+    const match = message.content.match(/^\/(\w+)\s*;?\s*(.+)/);
     if (match) {
         command = match[1];      
         messageText = match[2];  
     }   
 
-    if(command == "dance"){
-        window.open("https://bos.ch/leckerkeks", "_blank")
-    }
+    //if(command == "dance"){
+    //    window.open("https://bos.ch/leckerkeks", "_blank")
+    //}
 
     const colorMap: Record<string, string> = {
         red: "bg-red-300",
@@ -35,7 +35,7 @@
 
     const color = colorMap[command] || "bg-gray-300";
 
-    const currentUserId = $user?.id;
+    const currentUserId = $userStore?.id;
     let left = message.sender?.id !== currentUserId;
 </script>
 

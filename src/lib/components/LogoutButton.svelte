@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { user } from '$lib/stores/userStore';
+    import { userStore } from '$lib/stores/userStore';
 
     function handleLogout() {
         // Clear user store
-        user.set(undefined);
+        userStore.set(undefined);
 
         // Redirect to logout URL
         window.location.href = 'http://localhost:5191/api/v1/Auth/signout?returnUrl=http://localhost:5173/login';

@@ -2,4 +2,4 @@
 import { writable } from 'svelte/store';
 import type { UserDTO } from '$lib/api/Api';
 
-export const user = writable<UserDTO | undefined>(undefined);
+export const userStore = writable<UserDTO | undefined>(undefined);

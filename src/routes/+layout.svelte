@@ -1,29 +1,17 @@
 <script lang="ts">
-	let { children } = $props();
-	import { ApiProvider } from '$lib/provider/ApiProvider';
-	import { onMount } from 'svelte';
-	import { user } from '$lib/stores/userStore';
-	const api = new ApiProvider().api
+	import type { UserDTO } from '$lib/api/Api';
+	import { userStore } from '$lib/stores/userStore';
+	interface Props {
+		children: any,
+		user: UserDTO,
+	}
+	let  { data, children }  = $props();
 
-	onMount(() => {
-
-		async function fetchMe() {
-			try {
-				const res = await api.auth.v1AuthMeList();
-				console.log(res.data)
-				user.set(res.data)
-				console.log("From layout")
-			} catch (err) {
-				console.error("Failed to fetch user data:", err);
-                console.log(window.location.pathname)
-				if(window.location.pathname != "/login"){
-					window.location.pathname = "/login"
-				}
-			}
-		}
-
-		fetchMe();
-	});
+	
+	// Sync store on load
+	if (data.user) {
+		userStore.set(data.user);
+	}
 </script>
 
 {@render children()}

@@ -9,16 +9,22 @@
 	import MessageHistory from '$lib/components/MessageHistory.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import { ApiProvider } from '$lib/provider/ApiProvider';
-	import { user } from '$lib/stores/userStore';
-	// Store to hold incoming messages
+	import { userStore } from '$lib/stores/userStore';
+	
 	const messages = writable<MessageResponse[]>([]);
 	let { children} = $props()
+
 	
-	
+	//$effect(() => {
+	//	if($userStore && window.location.pathname == "/chat"){
+	//		window.location.pathname = `/chat/${$userStore.id}`
+	//	}
+	//})
+
 </script>
 
 
-{#if $user}
+{#if $userStore}
 	<div class="bg-redx-500 w-full h-[100vh] flex flex-row">
 	<Sidebar/>
 	<div class="flex flex-col w-full">

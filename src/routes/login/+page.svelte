@@ -1,7 +1,13 @@
 <script lang="ts">
     import "../../app.css"
-    import { user } from "$lib/stores/userStore";
+    import { userStore } from "$lib/stores/userStore";
+	import { onMount } from "svelte";
 
+    onMount(() => {
+        if($userStore){
+            window.location.pathname = "/"
+        }
+    })
 
 </script>
 <div class="h-[100vh] flex justify-center items-center" >

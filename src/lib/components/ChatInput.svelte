@@ -2,7 +2,7 @@
 	import { writable } from 'svelte/store';
     import { Api, type UserDTO } from '$lib/api/Api';
 	import { page } from "$app/state";
-	import { user } from '$lib/stores/userStore';
+	import { userStore } from '$lib/stores/userStore';
     const api = new Api({
     	baseURL:"http://localhost:5191"
 	})
@@ -12,7 +12,7 @@
 	const message = $input.trim();
 	if (!message) return;
 
-	const currentUser = $user;
+	const currentUser = $userStore;
 
 	if (!currentUser) {
 		console.error("User not logged in");
