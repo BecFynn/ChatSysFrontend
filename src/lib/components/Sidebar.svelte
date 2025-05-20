@@ -30,6 +30,6 @@
 	{#each groups as groupchat }
 		<GroupchatListItem groupchat={groupchat} />
 	{/each}
-	<!--<AddGroupchat/>-->
+	<AddGroupchat/>
 	
 </div>
