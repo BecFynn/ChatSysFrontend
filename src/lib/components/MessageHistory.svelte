@@ -85,7 +85,7 @@
 <div
 	bind:this={container}
 	class="flex flex-col overflow-y-auto h-full px-2"
-	on:scroll={checkIsAtBottom}
+	onscroll={checkIsAtBottom}
 >
 	{#each $messages as message}
 		<Bubble {message}/>

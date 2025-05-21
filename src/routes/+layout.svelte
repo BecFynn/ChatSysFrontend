@@ -3,7 +3,6 @@
 	import { userStore } from '$lib/stores/userStore';
 	interface Props {
 		children: any,
-		user: UserDTO,
 	}
 	let  { data, children }  = $props();
 
@@ -12,6 +11,8 @@
 	if (data.user) {
 		userStore.set(data.user);
 	}
+
+	
 </script>
 
 {@render children()}
