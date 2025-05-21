@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { userStore } from '$lib/stores/userStore';
+    import
+     { userStore } from '$lib/stores/userStore';
 
     function handleLogout() {
         // Clear user store
