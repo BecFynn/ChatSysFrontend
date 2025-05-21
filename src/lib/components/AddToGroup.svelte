@@ -24,6 +24,22 @@
 		//console.log(adding);
     }
 	
+	async function removeUser(personToRemove:UserDTO){
+		//alert("adduser")
+
+		const chats = await api.sendCreate({
+		senderID: $userStore?.id,
+		receiverID: target?.id,
+		content: "/red "+ $userStore?.displayName +" Removed " + personToRemove.displayName
+		}).then(r => r.data);
+		//console.log(chats);
+	
+        const adding = await api.removeUser.groupRemoveUserDelete({
+			groupId: target?.id,
+			userid: personToRemove.id
+		}).then(r => r.data);
+		//console.log(adding);
+    }
 	
 
     let users: UserDTO[] = [];
@@ -34,20 +50,22 @@
 </script>
 
 <div
-	class="group bg-gray-300 rounded-b-none hover:bg-gray-500 cursor-pointer p-4 flex justify-center items-center rounded-md text-white font-bold ml-3 relative"
+	class="group w-90 bg-gray-300 rounded-b-none hover:bg-gray-500 cursor-pointer p-4 flex justify-center items-center rounded-md text-white font-bold ml-3 relative"
 >
-	<div>Add User</div>
-
-	<div class="absolute bg-gray-500 overflow-x-hidden no-scrollbar overflow-y-auto h-55 hidden group-hover:block top-full left-0 z-10 rounded-b-md">
+	<div>Manage User</div>
+	<!--hidden-->
+	<div class="  absolute bg-gray-500 w-90 overflow-x-hidden no-scrollbar overflow-y-auto h-55  group-hover:block top-full left-0 z-10 rounded-b-md">
 		{#each users as person}
-			<a
-				on:click|preventDefault={() => addUser(person)}
-				href="#"
-				class="flex flex-row items-center gap-2 p-2 hover:bg-gray-300 font-normal text-sm text-white"
-			>
-				<img src={person.avatar} alt={person?.id} class="h-8 w-8 rounded-full" />
-				{person.displayName}
-			</a>
+			<div class="flex flex-row justify-between gap-2 p-2 font-normal text-sm text-white">
+				<div class="flex flex-row ">
+					<img src={person.avatar} alt={person?.id} class="h-8 w-8 rounded-full" />
+					{person.displayName}
+				</div>
+				<div>
+					<a class="p-3 hover:bg-gray-300" href="#" on:click|preventDefault={() => addUser(person)}>+</a>
+					<a class="p-3 hover:bg-gray-300" href="#" on:click|preventDefault={() => removeUser(person)}>-</a>
+				</div>
+			</div>
 		{/each}
 	</div>
 </div>
