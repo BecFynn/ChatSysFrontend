@@ -2,18 +2,29 @@
     import { Api, type GroupchatDTO, type Target, type UserDTO } from '$lib/api/Api';
 	import { onMount } from 'svelte';
     import ChatListItem from "./ChatListItem.svelte";
+	import { userStore } from '$lib/stores/userStore';
     export let target : Target | null;
 
     const api = new Api({baseURL:"http://localhost:5191"})
 
     async function addUser(personToAdd:UserDTO){
-        const chats = await api.addUser.groupAddUserCreate({
+		//alert("adduser")
+
+		const chats = await api.sendCreate({
+		senderID: $userStore?.id,
+		receiverID: target?.id,
+		content: "/green "+ $userStore?.displayName +" Added " + personToAdd.displayName
+		}).then(r => r.data);
+		//console.log(chats);
+	
+        const adding = await api.addUser.groupAddUserCreate({
 			groupId: target?.id,
 			userid: personToAdd.id
 		}).then(r => r.data);
-
-		console.log(chats);
+		//console.log(adding);
     }
+	
+	
 
     let users: UserDTO[] = [];
     onMount(async () => {

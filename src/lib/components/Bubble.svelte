@@ -33,6 +33,17 @@
         bounce: "animate-bounce bg-gray-300"
     };
 
+    let imageUrl: string | null = null;
+
+    // Simple regex to detect image URLs
+    const imageRegex = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))/i;
+
+    const imageMatch = messageText.match(imageRegex);
+    if (imageMatch) {
+        imageUrl = imageMatch[1];
+    }
+
+    
     const color = colorMap[command] || "bg-gray-300";
 
     const currentUserId = $userStore?.id;
@@ -48,6 +59,10 @@
         <div class="{color} max-w-[60%] px-3 py-2 rounded-lg">
             <p class="font-bold text-lg">{message.sender?.displayName}</p>
             <p>{messageText}</p>
+            
+            {#if imageUrl}
+                <img src={imageUrl} alt="linked image" class="mt-2 rounded max-w-full" />
+            {/if}
         </div>
     </div>
 </div> 
