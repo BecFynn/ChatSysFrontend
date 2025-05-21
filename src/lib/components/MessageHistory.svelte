@@ -84,7 +84,7 @@
 <br>
 <div
 	bind:this={container}
-	class="flex flex-col overflow-y-auto h-full px-2"
+	class="flex flex-col overflow-y-auto overflow-x-hidden h-full px-2"
 	onscroll={checkIsAtBottom}
 >
 	{#each $messages as message}
