@@ -27,7 +27,7 @@
 >
 	<div>Add User</div>
 
-	<div class="absolute bg-gray-500 hidden group-hover:block top-full left-0 z-10 rounded-b-md">
+	<div class="absolute bg-gray-500 overflow-x-hidden no-scrollbar overflow-y-auto h-55 hidden group-hover:block top-full left-0 z-10 rounded-b-md">
 		{#each users as person}
 			<a
 				on:click|preventDefault={() => addUser(person)}
