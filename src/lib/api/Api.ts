@@ -26,9 +26,10 @@ export interface CreateGroupRequest {
 export interface CreateUserRequest {
   name?: string | null;
   surname?: string | null;
-  displayName?: string | null;
   ntUser?: string | null;
   email?: string | null;
+  password?: string | null;
+  repeatPassword?: string | null;
 }
 
 export interface GetMessagesReponse {
@@ -51,6 +52,11 @@ export interface GroupchatDTOShort {
   name?: string | null;
   /** @format date-time */
   createdDate?: string;
+}
+
+export interface LoginUserRequest {
+  email?: string | null;
+  password?: string | null;
 }
 
 export interface MessageDTO {
@@ -295,6 +301,38 @@ export class HttpClient<SecurityDataType = unknown> {
 export class Api<
   SecurityDataType extends unknown,
 > extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Auth
+   * @name RegisterCreate
+   * @request POST:/register
+   */
+  registerCreate = (data: CreateUserRequest, params: RequestParams = {}) =>
+    this.request<void, any>({
+      path: `/register`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Auth
+   * @name LoginCreate
+   * @request POST:/login
+   */
+  loginCreate = (data: LoginUserRequest, params: RequestParams = {}) =>
+    this.request<void, any>({
+      path: `/login`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      ...params,
+    });
+
   /**
    * No description
    *
