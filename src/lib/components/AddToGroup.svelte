@@ -54,7 +54,7 @@
 >
 	<div>Manage User</div>
 	<!--hidden-->
-	<div class="  absolute bg-gray-500 w-90 overflow-x-hidden no-scrollbar overflow-y-auto h-55  group-hover:block top-full left-0 z-10 rounded-b-md">
+	<div class=" hidden absolute bg-gray-500 w-90 overflow-x-hidden no-scrollbar overflow-y-auto h-55  group-hover:block top-full left-0 z-10 rounded-b-md">
 		{#each users as person}
 			<div class="flex flex-row justify-between gap-2 p-2 font-normal text-sm text-white">
 				<div class="flex flex-row ">

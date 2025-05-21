@@ -6,16 +6,28 @@
 	import AddGroupchat from "./AddGroupchat.svelte";
 	import ChatListItem from "./ChatListItem.svelte";
 	import GroupchatListItem from "./GroupchatListItem.svelte";
+	import { userStore } from "$lib/stores/userStore";
     const api = new Api({baseURL:"http://localhost:5191"})
 
 	let users: UserDTO[] = [];
 	let groups: GroupchatDTO[] = [];
+	let GroupsofUser: GroupchatDTO[] = [];
+
 	// Load users on component mount
 	onMount(async () => {
 		const userList = await api.userList().then(r => r.data)
-		users = userList
-		const groupList = await api.groupList().then(r => r.data)
-		groups = groupList
+		users = userList;
+		
+		let currentUser = $userStore; 
+		const groupList = await api.groupList().then(r => r.data);
+		groups = groupList;
+		
+		if (currentUser) {
+			GroupsofUser = groups.filter(group =>
+				group.users?.some(u => u.id == currentUser.id)
+			);
+		}
+		console.log(GroupsofUser)
 	});
 </script>
 
@@ -27,7 +39,8 @@
 	{#each users as person }
 		<ChatListItem person={person}/>
 	{/each}
-	{#each groups as groupchat }
+	{#each GroupsofUser as groupchat }
+
 		<GroupchatListItem groupchat={groupchat} />
 	{/each}
 	<AddGroupchat/>
