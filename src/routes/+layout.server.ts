@@ -28,13 +28,17 @@ export const load: LayoutServerLoad = async (context : ServerLoadEvent) => {
         user = await api.auth.v1AuthMeList();
         console.log({user});
     } catch (e) {
-        console.log("user auth request failed --> login", e);
+        console.log("user auth request failed --> login 2", e);
 
-        return {
+         if(context.route.id == "/login"){
+             return {
             login: true,
             user: null as unknown as UserDTO,
             currentUserId: null as unknown as string,
-        };
+        }
+        }else{
+            return redirect(302, "http://localhost:5173/login");
+        }
     }
 
     if(context.route.id == "/chat"){
