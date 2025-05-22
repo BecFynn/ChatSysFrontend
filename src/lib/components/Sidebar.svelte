@@ -11,12 +11,14 @@
 
 	let users: UserDTO[] = [];
 	let groups: GroupchatDTO[] = [];
-	let GroupsofUser: GroupchatDTO[] = [];
 
 	// Load users on component mount
 	onMount(async () => {
+
+		const userList = await api.userList().then(r => r.data);
+		users = userList;
 		
-		let currentUser = $userStore; 
+
 		const groupList = await api.groupList().then(r => r.data);
 		groups = groupList;
 		
@@ -31,9 +33,10 @@
 	</div>
 
 	{#each users as person }
+		
 		<ChatListItem person={person}/>
 	{/each}
-	{#each GroupsofUser as groupchat }
+	{#each groups as groupchat }
 
 			<GroupchatListItem groupchat={groupchat} />
 		{/each}
