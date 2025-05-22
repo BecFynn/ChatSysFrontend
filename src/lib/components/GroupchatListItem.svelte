@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { GroupchatDTO, UserDTO } from "$lib/api/Api";
+    import Avatar from "./Avatar.svelte";
+
     interface Props {
 		groupchat: GroupchatDTO
 	}
@@ -16,7 +18,8 @@
     <div class="flex flex-row px-2 justify-">
         <div class="bg-white h-16 w-16 justify-self-start flex flex-row">
             {#each groupchat.users || [] as user}
-                <img src={user?.avatar} alt={user?.id} class="h-16 w-16 -ml-5">    
+                <img src={user?.avatar} alt={user?.id} class="h-16 w-16 -ml-5 hidden">
+                <Avatar person={user} myClass={"h-16 w-16 -ml-5"}/>
             {/each}
         
         </div>

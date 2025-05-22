@@ -15,9 +15,6 @@
 
 	// Load users on component mount
 	onMount(async () => {
-		let currentUser = $userStore; 
-		const userList = await api.userList().then(r => r.data)
-		users = userList;
 		
 		let currentUser = $userStore; 
 		const groupList = await api.groupList().then(r => r.data);

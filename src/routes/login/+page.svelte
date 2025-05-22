@@ -6,7 +6,6 @@
 	import type { AddUserRequest, CreateUserRequest } from "$lib/api/Api";
 
     const api = new ApiProvider().api;
-
     let isLogin = true;
 
     // Login form

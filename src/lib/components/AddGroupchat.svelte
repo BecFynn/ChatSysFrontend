@@ -2,6 +2,9 @@
     import { userStore } from '$lib/stores/userStore';
     import { Api} from '$lib/api/Api';
 	import { onMount } from 'svelte';
+
+  
+
     const api = new Api({baseURL:"http://localhost:5191"})
 
 	let groupName = "";

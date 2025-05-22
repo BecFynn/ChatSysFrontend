@@ -4,7 +4,7 @@
     import ChatListItem from "./ChatListItem.svelte";
 	import { userStore } from '$lib/stores/userStore';
     export let target : Target | null;
-
+	import Avatar from './Avatar.svelte';
     const api = new Api({baseURL:"http://localhost:5191"})
 
     async function addUser(personToAdd:UserDTO){
@@ -63,7 +63,8 @@
 		{#each usersInGroup?.users as person}
 			<div class="flex flex-row justify-between gap-2 p-2 font-normal text-sm text-white">
 				<div class="flex flex-row ">
-					<img src={person.avatar} alt={person?.id} class="h-8 w-8 rounded-full" />
+					<img src={person.avatar} alt={person?.id} class="h-8 w-8 rounded-full hidden" />
+					<Avatar person={person} myClass={"h-8 w-8 rounded-full"}/>
 					{person.displayName}
 				</div>
 				<div>
@@ -75,7 +76,8 @@
 		{#each users as person}
 			<div class="flex flex-row justify-between gap-2 p-2 font-normal text-sm text-white">
 				<div class="flex flex-row ">
-					<img src={person.avatar} alt={person?.id} class="h-8 w-8 rounded-full" />
+					<img src={person.avatar} alt={person?.id} class="h-8 w-8 rounded-full hidden" />
+					<Avatar person={person} myClass={"h-8 w-8 rounded-full"}/>
 					{person.displayName}
 				</div>
 				<div>
