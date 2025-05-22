@@ -516,6 +516,22 @@ export class Api<
         ...params,
       }),
   };
+  myGroups = {
+    /**
+     * No description
+     *
+     * @tags Group
+     * @name GroupMyGroupsList
+     * @request GET:/api/Group/MyGroups
+     */
+    groupMyGroupsList: (params: RequestParams = {}) =>
+      this.request<GroupchatDTO[], any>({
+        path: `/api/Group/MyGroups`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+  };
   id = {
     /**
      * No description

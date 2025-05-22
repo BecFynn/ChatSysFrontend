@@ -6,6 +6,7 @@
 	import { page } from "$app/state";
 	import Bubble from "./Bubble.svelte";
 	import { Api, type GetMessagesReponse, type MessageDTO, type MessageResponse } from "$lib/api/Api";
+	import { userStore } from "$lib/stores/userStore";
 
 	interface Props {
 		chatData: GetMessagesReponse
@@ -17,9 +18,6 @@
 		messages.set(chatData.messages);
 	}
 	});
-
- 
-	
 
 	let socket: WebSocket | null = null;
 	let container: HTMLDivElement;
@@ -51,11 +49,12 @@
 			
 				if (
 					myNewMessage.groupReciever?.id === targetId ||
-					myNewMessage.userReciever?.id === targetId
+					myNewMessage.userReciever?.id === targetId 
 				) {
 					console.log(newMessage)
 					messages.update(msgs => [...msgs, myNewMessage]);
 				}
+				
 			}
 		});
 

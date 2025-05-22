@@ -1,13 +1,13 @@
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad, PageServerLoadEvent } from './$types';
 import { Api } from '$lib/api/Api';
 import { redirect } from '@sveltejs/kit';
-export const load: PageServerLoad = async ({ params }) => {
+import { ApiProvider } from '$lib/provider/ApiProvider';
 
-	let api = new Api({
-		baseURL:"http://localhost:5191"
-	})
 
-	let chatData = await api.messageList({target: params.chatID}).then(r => r.data)
+export const load: PageServerLoad = async ({ params, cookies } : PageServerLoadEvent) => {
+
+	const api = new ApiProvider(cookies.getAll()).api;
+	const chatData = await api.messageList({target: params.chatID}).then(r => r.data)
 
 	console.log(chatData)
 
