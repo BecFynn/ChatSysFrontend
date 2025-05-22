@@ -13,7 +13,13 @@
 				{JSON.stringify($userStore, null, 2)}
 			</pre>
 
-			<div class="w-full m-4 flex justify-center items-center">
+			<div class="w-full m-4 flex justify-center items-center flex-row gap-5">
+				<a
+					href="/chat"
+				    class="bg-green-500 hover:bg-green-400 cursor-pointer p-4 flex justify-center items-center rounded-md text-white font-bold"
+				>
+				    <p>Chat</p>
+			</a>
 				<LogoutButton/>
 			</div>
 		{:else}

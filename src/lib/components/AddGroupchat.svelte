@@ -6,7 +6,7 @@
 
 	let groupName = "";
 
-    async function addGroup(GroupName:String){
+    async function addGroup(GroupName : string){
         const chats = await api.groupCreate({
 			groupname: GroupName,
 			creatorId: $userStore?.id
@@ -18,21 +18,20 @@
    
 </script>
 
-<div href="" class="bg-white h-[6rem] mb-3 rounded-lg flex flex-col py-1 px-3 cursor-pointer select-none">
+<div class="bg-white h-[6rem] mb-3 rounded-lg flex flex-col py-1 px-3 cursor-pointer select-none">
     <div class="flex flex-row justify-between font-semibold">
         <p>Group Chat Erstellen</p>
         
     </div>
-    <div class="flex flex-row justify-center">
+    <div class="flex flex-row justify-center my-auto">
         <input 
             bind:value={groupName}
             type="text"
             placeholder="Gruppenname"
-            class="border-2 rounded-lg"/>
-        <a 
-            href=""             
+            class="border-2 rounded-lg h-10 pl-2"/>
+            <button
             onclick={() => addGroup(groupName)}
-            class="ml-3 font-bold"> + </a>
+            class="ml-3 font-bold bg-redx-500 p-2 cursor-pointer"> + </button>
     </div>
 </div>
 
