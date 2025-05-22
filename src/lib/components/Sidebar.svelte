@@ -7,7 +7,8 @@
 	import ChatListItem from "./ChatListItem.svelte";
 	import GroupchatListItem from "./GroupchatListItem.svelte";
 	import { userStore } from "$lib/stores/userStore";
-    const api = new Api({baseURL:"http://localhost:5191"})
+	import { ApiProvider } from "$lib/provider/ApiProvider";
+    const api = new ApiProvider().api;
 
 	let users: UserDTO[] = [];
 	let groups: GroupchatDTO[] = [];
@@ -19,7 +20,7 @@
 		users = userList;
 		
 
-		const groupList = await api.groupList().then(r => r.data);
+		const groupList = await api.myGroups.groupMyGroupsList().then(r => r.data);
 		groups = groupList;
 		
 		console.log(groups)
