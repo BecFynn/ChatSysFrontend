@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { UserDTO } from "$lib/api/Api";
-    
+    import { userStore } from "$lib/stores/userStore";
     interface Props {
 		person: UserDTO
 	}
-
+    
     let {person} : Props = $props()
 </script>
+
 
 <a href={`/chat/${person.id}`} class="bg-white h-[6rem] mb-3 rounded-lg flex flex-col py-1 px-3 cursor-pointer select-none">
     <div class="flex flex-row justify-between font-semibold">
@@ -15,14 +16,15 @@
             <p class="text-sm font-bold text-white">5</p>
         </div>
     </div>
-    <div class="flex flex-row px-2 justify-">
+    <div class="flex flex-row px-2 ">
     
         <div class="bg-white h-16 w-16 justify-self-start">
             <img src={person?.avatar} alt={person?.id} class="h-16 w-16">
         </div>
-        <div class="flex justify-center items-center bg-redx-500 w-full">
+        <div class="flex justify-center items-center bg-redx-500 w-full select-none">
             <p class="text-lg">{person.displayName}</p>
         </div>
     </div>
     
 </a>
+    

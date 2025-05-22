@@ -9,24 +9,26 @@
 
 	const input = writable('');
 	async function handleSend() {
-	const message = $input.trim();
-	if (!message) return;
+		const message = $input.trim();
+		if (!message) return;
 
-	const currentUser = $userStore;
+		const currentUser = $userStore;
 
-	if (!currentUser) {
-		console.error("User not logged in");
-		return;
+		if (!currentUser) {
+			console.error("User not logged in");
+			return;
+		}
+
+		const chats = await api.sendCreate({
+			senderID: currentUser.id,
+			receiverID: page.params.chatID,
+			content: message
+		}).then(r => r.data);
+
+		input.set("");
+
+		console.log(chats);
 	}
-
-	const chats = await api.sendCreate({
-		senderID: currentUser.id,
-		receiverID: page.params.chatID,
-		content: message
-	}).then(r => r.data);
-
-	console.log(chats);
-}
 
 
 </script>

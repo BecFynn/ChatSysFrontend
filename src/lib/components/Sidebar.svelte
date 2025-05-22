@@ -7,19 +7,20 @@
 	import ChatListItem from "./ChatListItem.svelte";
 	import GroupchatListItem from "./GroupchatListItem.svelte";
 	import { userStore } from "$lib/stores/userStore";
-	import { ApiProvider } from "$lib/provider/ApiProvider";
-    const api = new ApiProvider().api;
+    const api = new Api({baseURL:"http://localhost:5191"})
 
 	let users: UserDTO[] = [];
 	let groups: GroupchatDTO[] = [];
+	let GroupsofUser: GroupchatDTO[] = [];
 
 	// Load users on component mount
 	onMount(async () => {
+		let currentUser = $userStore; 
 		const userList = await api.userList().then(r => r.data)
 		users = userList;
-		console.log(users)
 		
-		const groupList = await api.myGroups.groupMyGroupsList().then(r => r.data);
+		let currentUser = $userStore; 
+		const groupList = await api.groupList().then(r => r.data);
 		groups = groupList;
 		
 		console.log(groups)
@@ -27,17 +28,19 @@
 </script>
 
 <div class="h-screen overflow-y-auto min-w-[15rem] w-[30%] max-w-[19rem] bg-[#D9D9D9] flex flex-col p-5">
-	<div class="flex justify-center items-center text-bold mb-5 text-xl">
+	<div class="bg-redx-500 h-[90%]">
+		<div class="flex flex-row justify-around font-bold mb-5 text-xl  ">
 		<p>Chats</p>
 	</div>
 
 	{#each users as person }
 		<ChatListItem person={person}/>
 	{/each}
-	{#each groups as groupchat }
+	{#each GroupsofUser as groupchat }
 
-		<GroupchatListItem groupchat={groupchat} />
-	{/each}
+			<GroupchatListItem groupchat={groupchat} />
+		{/each}
+	</div>
 	<AddGroupchat/>
 	
 </div>

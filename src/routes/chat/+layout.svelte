@@ -11,8 +11,7 @@
 	import { ApiProvider } from '$lib/provider/ApiProvider';
 	import { userStore } from '$lib/stores/userStore';
 	
-	const messages = writable<MessageResponse[]>([]);
-	let { children} = $props()
+	let { children } = $props()
 
 	
 	//$effect(() => {

@@ -50,7 +50,7 @@
     let left = message.sender?.id !== currentUserId;
 </script>
 
-<div class="flex w-full" class:justify-start={left} class:justify-end={!left}>
+<div class="flex w-full my-5" class:justify-start={left} class:justify-end={!left}>
     <div class="flex items-center gap-2" class:flex-row={left} class:flex-row-reverse={!left}>
         <div class="h-12 w-12 rounded-sm bg-gray-100 shrink-0">
             <img src={message.sender?.avatar} alt={message.sender?.id} class="w-full h-full object-cover rounded-sm" />
