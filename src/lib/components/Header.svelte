@@ -4,8 +4,14 @@
 	import { page } from "$app/state";
 	import LogoutButton from "./LogoutButton.svelte";
 	import AddToGroup from "./AddToGroup.svelte";
+    import { userStore } from "$lib/stores/userStore";
+	import Avatar from "./Avatar.svelte";
+    interface Props {
+        target: Target | null;
+    }
+    const { target }: Props = $props()
 
-    export let target : Target | null;
+    const currentUser = $userStore
     
 </script>
 
@@ -17,6 +23,9 @@
             <AddToGroup target={target}/>
         {/if}
     </div>
-    
-    <LogoutButton/>
+    <div class="w3/5 flex flex-row">
+        <Avatar person={currentUser!} myClass={"h-10 w-10"}/>
+        <div class="m-1 w-4/5 h-5/5 text-3xl font-bold">{currentUser?.displayName}</div>
+        <LogoutButton/>
+    </div>
 </div>

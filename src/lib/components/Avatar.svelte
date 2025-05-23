@@ -3,7 +3,7 @@
 
   interface Props {
     myClass: string,
-    person: UserDTOShort | UserDTO
+    person: UserDTOShort | UserDTO | UserDTO
   }
 
   const {  myClass, person} : Props = $props()
