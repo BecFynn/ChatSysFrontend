@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { UserDTO } from "$lib/api/Api";
     import Avatar from "./Avatar.svelte";
+    import "./../../app.css"
     import { userStore } from "$lib/stores/userStore";
     interface Props {
 		person: UserDTO
@@ -10,11 +11,11 @@
 </script>
 
 
-<a href={`/chat/${person.id}`} class="bg-white h-[6rem] mb-3 rounded-lg flex flex-col py-1 px-3 cursor-pointer select-none">
+<a href={`/chat/${person.id}`} class="bg-white hover:font-bold border-b-1 h-[6rem] flex-col py-1 px-4 cursor-pointer select-none flex items-center justify-center justify-between">
     <div class="flex flex-row justify-between font-semibold">
-        <p>Direct Chat</p>
+        <p class="hidden">Direct Chat</p>
         <div class="bg-green-400 hidden h-6 w-6 rounded-full text-center flex justify-center items-center">
-            <p class="text-sm font-bold text-white">5</p>
+            <p class="text-sm  text-white">5</p>
         </div>
     </div>
     <div class="flex flex-row px-2 ">

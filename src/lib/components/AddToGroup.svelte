@@ -39,6 +39,8 @@
 			userid: personToRemove.id
 		}).then(r => r.data);
 		//console.log(adding);
+
+
     }
 	
     let users: UserDTO[] = [];
@@ -68,7 +70,10 @@
 					{person.displayName}
 				</div>
 				<div>
-					<a class="p-3 rounded-lg hover:bg-red-300" href="#" on:click|preventDefault={() => removeUser(person)}>-</a>
+					<a class="p-3 rounded-lg hover:bg-red-300" href="#" onclick={(e) => {
+						e.preventDefault()
+						removeUser(person)
+					}}>-</a>
 				</div>
 			</div>
 		{/each}
@@ -81,7 +86,10 @@
 					{person.displayName}
 				</div>
 				<div>
-					<a class="p-3 rounded-lg hover:bg-green-300" href="#" on:click|preventDefault={() => addUser(person)}>+</a>
+					<a class="p-3 rounded-lg hover:bg-green-300" href="#" onclick={(e) => {
+						e.preventDefault()
+						addUser(person)
+					}}>+</a>
 				</div>
 			</div>
 		{/each}

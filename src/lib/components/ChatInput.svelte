@@ -41,7 +41,7 @@
 		placeholder="Type a message..."
 		on:keydown={(e) => e.key === 'Enter' && handleSend()}
 	/>
-	<button class="bg-gray-200 cursor-pointer hover:bg-gray-300 p-10" on:click={handleSend}>Send</button>
+	<button class="bg-gray-200 cursor-pointer hover:bg-gray-300 p-10" onclick={handleSend}>Send</button>
 </div>
 
 

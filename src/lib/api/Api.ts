@@ -19,8 +19,6 @@ export interface AddUserRequest {
 
 export interface CreateGroupRequest {
   groupname?: string | null;
-  /** @format uuid */
-  creatorId?: string;
 }
 
 export interface CreateUserRequest {
@@ -356,11 +354,12 @@ export class Api<
    * @request POST:/api/Group
    */
   groupCreate = (data: CreateGroupRequest, params: RequestParams = {}) =>
-    this.request<void, any>({
+    this.request<GroupchatDTO, any>({
       path: `/api/Group`,
       method: "POST",
       body: data,
       type: ContentType.Json,
+      format: "json",
       ...params,
     });
 

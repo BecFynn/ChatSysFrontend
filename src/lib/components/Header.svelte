@@ -16,7 +16,7 @@
 </script>
 
 
-<div class="bg-gray-300 shadow-md h-18 p-4 flex justify-between">
+<div class="bg-white shadow-sm h-18 p-4 flex justify-between">
     <div class="text-3xl font-bold flex flex-row">
         {target?.name}
         {#if target?.type=="group"}
@@ -24,8 +24,10 @@
         {/if}
     </div>
     <div class="w3/5 flex flex-row">
-        <Avatar person={currentUser!} myClass={"h-10 w-10"}/>
-        <div class="m-1 w-4/5 h-5/5 text-3xl font-bold">{currentUser?.displayName}</div>
+        <div class="flex flex-row mx-3 select-none">
+            <Avatar person={currentUser!} myClass={"h-10 w-10"}/>
+            <div class="m-1 w-4/5 h-5/5 text-3xl font-bold">{currentUser?.displayName}</div>
+        </div>
         <LogoutButton/>
     </div>
 </div>
