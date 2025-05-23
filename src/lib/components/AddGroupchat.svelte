@@ -31,10 +31,10 @@
             bind:value={groupName}
             type="text"
             placeholder="Gruppenname"
-            class="border-2 rounded-lg h-10 pl-2"/>
+            class="border-2 rounded-lg w-4/5 h-10 pl-2"/>
             <button
             onclick={() => addGroup(groupName)}
-            class="ml-3 font-bold bg-redx-500 p-2 cursor-pointer"> + </button>
+            class="ml-3 font-bold bg-redx-500 p-2 cursor-pointer w-1/5"> + </button>
     </div>
 </div>
 
